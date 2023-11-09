@@ -1,0 +1,149 @@
+<!-- 
+    this will be a course content webpage
+    the course name is "Data Structures and Algorithms"
+    it will have a navigation bar
+    it will have four buttons in the nav bar
+    1) Notes
+    2) Practice_questions
+    3) Assignments
+    4) Placement_round_questions
+    the page initially should only display the navigation bar and its buttons
+    after clicking a button the content to be displayed will be fetched from another html file
+    the content will be displayed in the same page below navigation bar
+    for notes button content will be fetched from notes.html
+    for practice_questions button content will be fetched from practice_questions.html
+    for assignments button content will be fetched from assignments.html
+    for placement_round_questions button content will be fetched from placement_round_questions.html
+    the content will be displayed in the same page below navigation bar
+
+ -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Data Structures and Algorithms</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a class="active" href="#">Notes</a>
+        <a href="#">Practice Questions</a>
+        <a href="#">Assignments</a>
+        <a href="#">Placement Round Questions</a>
+    </nav>
+    <div id="content"></div>
+    <script>
+        const notesBtn = document.querySelector('nav a:nth-child(1)');
+        const practiceQuestionsBtn = document.querySelector('nav a:nth-child(2)');
+        const assignmentsBtn = document.querySelector('nav a:nth-child(3)');
+        const placementRoundQuestionsBtn = document.querySelector('nav a:nth-child(4)');
+        const contentDiv = document.querySelector('#content');
+
+        notesBtn.addEventListener('click', () => {
+            fetch('notes.html')
+                .then(response => response.text())
+                .then(data => {
+                    contentDiv.innerHTML = data;
+                    const scripts = document.getElementById('content').querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const scriptClone = document.createElement('script');
+                        scriptClone.textContent = script.textContent;
+                        document.head.appendChild(scriptClone).parentNode.removeChild(scriptClone);
+                    });
+                    notesBtn.classList.add('active');
+                    practiceQuestionsBtn.classList.remove('active');
+                    assignmentsBtn.classList.remove('active');
+                    placementRoundQuestionsBtn.classList.remove('active');
+                });
+
+        });
+
+        practiceQuestionsBtn.addEventListener('click', () => {
+            fetch('practice_questions.html')
+                .then(response => response.text())
+                .then(data => {
+                    contentDiv.innerHTML = data;
+                    const scripts = document.getElementById('content').querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const scriptClone = document.createElement('script');
+                        scriptClone.textContent = script.textContent;
+                        document.head.appendChild(scriptClone).parentNode.removeChild(scriptClone);
+                    });
+                    notesBtn.classList.remove('active');
+                    practiceQuestionsBtn.classList.add('active');
+                    assignmentsBtn.classList.remove('active');
+                    placementRoundQuestionsBtn.classList.remove('active');
+                });
+        });
+
+        assignmentsBtn.addEventListener('click', () => {
+            fetch('assignments.html')
+                .then(response => response.text())
+                .then(data => {
+                    contentDiv.innerHTML = data;
+                    const scripts = document.getElementById('content').querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const scriptClone = document.createElement('script');
+                        scriptClone.textContent = script.textContent;
+                        document.head.appendChild(scriptClone).parentNode.removeChild(scriptClone);
+                    });
+                    notesBtn.classList.remove('active');
+                    practiceQuestionsBtn.classList.remove('active');
+                    assignmentsBtn.classList.add('active');
+                    placementRoundQuestionsBtn.classList.remove('active');
+                });
+        });
+
+        placementRoundQuestionsBtn.addEventListener('click', () => {
+            fetch('placement_round_questions.html')
+                .then(response => response.text())
+                .then(data => {
+                    contentDiv.innerHTML = data;
+                    const scripts = document.getElementById('content').querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const scriptClone = document.createElement('script');
+                        scriptClone.textContent = script.textContent;
+                        document.head.appendChild(scriptClone).parentNode.removeChild(scriptClone);
+                    });
+                    notesBtn.classList.remove('active');
+                    practiceQuestionsBtn.classList.remove('active');
+                    assignmentsBtn.classList.remove('active');
+                    placementRoundQuestionsBtn.classList.add('active');
+                });
+        });
+    </script>
+</body>
+
+</html>

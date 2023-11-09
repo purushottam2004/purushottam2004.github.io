@@ -1,0 +1,37 @@
+<!-- FILEPATH: /c:/Users/bb122/Desktop/DUMP/my_git_hub_page/notes.html -->
+<!-- 
+        This will have content for notes which is to be displayed in the same page below navigation bar in the index.html
+        This will have list of links to note files
+        The links will be displayed in the form of buttons
+        After clicking a link the respective file should be downloaded to the user's device
+        This content should be fetched from notes.txt file which is in the same folder as this file
+        It is stored as a list of topicname,link in simple text format
+ -->
+
+ <div id="practice_questions">
+    <h2>Practice Questions</h2>
+    <ul id="practice_questions-list"></ul>
+</div>
+
+<script>
+    // Fetching the content from notes.txt file
+    fetch('practice_questions.txt')
+        .then(response => response.text())
+        .then(data=> {
+            const notesList = document.getElementById("practice_questions-list");
+            const notes = data.split('\n');
+            notes.forEach(note => {
+                const [topic, link] = note.split(',');
+                // Displaying the links as buttons
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                const button = document.createElement('button');
+                button.innerText = topic;
+                a.href = link;
+                a.download = '';
+                a.appendChild(button);
+                li.appendChild(a);
+                notesList.appendChild(li);
+            });
+        });
+</script>
